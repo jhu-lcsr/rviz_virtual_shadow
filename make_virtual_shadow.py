@@ -18,6 +18,10 @@ def main():
     rospy.init_node('make_virtual_shadow')
 
     param_name = rospy.get_param('~model_param','/robot_description')
+
+    while not rospy.has_param(param_name) and not rospy.is_shutdown():
+        time.sleep(0.1)
+
     robot_description = rospy.get_param(param_name)
 
     tree = ET.fromstring(robot_description)
